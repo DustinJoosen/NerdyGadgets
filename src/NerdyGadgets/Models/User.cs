@@ -25,6 +25,16 @@ namespace NerdyGadgets.Models
         [Column("lastname")]
         public string LastName { get; set; }
 
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                var preposition = ((String.IsNullOrEmpty(this.Preposition)) ? this.Preposition : "") + " ";
+                return $"{this.FirstName} {preposition}{this.LastName}";
+            }
+        }
+
         [Required]
         [StringLength(128)]
         [Column("email")]

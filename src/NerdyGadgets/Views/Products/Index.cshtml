@@ -1,0 +1,18 @@
+﻿@model List<Product>
+
+<div class="row">
+    @foreach (var product in Model) {
+        <div class="col-3 card m-2">
+            <div class="card-header">
+                <p>product #@product.ProductNumber | @product.Name</p>
+            </div>
+            <div class="card-body">
+                <img src="@product.FullImagePath" width="200" />
+            </div>
+            <div class="card-footer">
+                <p>@product.Stock left</p>
+                <p>€@product.UnitPrice</p>
+            </div>
+        </div>
+    }
+</div>

@@ -31,6 +31,7 @@ namespace NerdyGadgets.Controllers
             
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError(String.Empty, "Not all required fields were filled.");
                 return View(auth);
             }
 
@@ -59,6 +60,7 @@ namespace NerdyGadgets.Controllers
             }
             else
             {
+                ModelState.AddModelError(String.Empty, "Email or password were incorrect.");
                 return View(auth);
             }
         }
@@ -77,15 +79,18 @@ namespace NerdyGadgets.Controllers
                 bool valid = true;
                 if (!await _authService.EmailInUse(dto.EmailAddress))
                 {
+                    ModelState.AddModelError("EmailAddress", "Email address is already in use");
                     valid = false;
                 }
                 if (dto.Password != dto.PasswordConfirmation)
                 {
+                    ModelState.AddModelError("Password", "Passwords are not equal");
                     valid = false;
                 }
 
                 if (!valid)
                 {
+                    ModelState.AddModelError(String.Empty, "");
                     return View(dto);
                 }
 
@@ -115,6 +120,7 @@ namespace NerdyGadgets.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
+            ModelState.AddModelError(String.Empty, "Not all required fields were filled");
             return View(dto);
         }
 

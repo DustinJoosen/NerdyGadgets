@@ -33,6 +33,14 @@ namespace NerdyGadgets.Models
         [Column("media")]
         public string? Media { get; set; }
 
+        public string FullImagePath
+        {
+            get
+            {
+                return "/img/notfound.jpg";
+            }
+        }
+
         [Required]
         [Column("stock")]
         public int Stock { get; set; }

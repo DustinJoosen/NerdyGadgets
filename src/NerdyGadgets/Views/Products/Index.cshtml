@@ -1,18 +1,68 @@
-﻿@model List<Product>
+﻿@model IEnumerable<NerdyGadgets.Models.Product>
 
-<div class="row">
-    @foreach (var product in Model) {
-        <div class="col-3 card m-2">
-            <div class="card-header">
-                <p>product #@product.ProductNumber | @product.Name</p>
-            </div>
-            <div class="card-body">
-                <img src="@product.FullImagePath" width="200" />
-            </div>
-            <div class="card-footer">
-                <p>@product.Stock left</p>
-                <p>€@product.UnitPrice</p>
-            </div>
-        </div>
-    }
-</div>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h3>Products</h3>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (item.Category == null) 
+                {
+                    <a>Uncategorized</a>
+                }
+                else 
+                {
+                    <a asp-action="Details" asp-controller="Categories" asp-route-id="@item.CategoryCode">
+                        @item.Category.Name
+                    </a>
+                }
+            </td>
+            <td>
+                €@Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductNumber">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductNumber">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductNumber">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

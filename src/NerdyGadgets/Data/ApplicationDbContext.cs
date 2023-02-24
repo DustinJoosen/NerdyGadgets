@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NerdyGadgets.Models;
+using NerdyGadgets.Dtos;
 
 namespace NerdyGadgets.Data
 {
@@ -56,5 +57,7 @@ namespace NerdyGadgets.Data
                 });
 
         }
+                
+        public DbSet<NerdyGadgets.Dtos.UserAddressDto> UserAddressDto { get; set; }
     }
 }

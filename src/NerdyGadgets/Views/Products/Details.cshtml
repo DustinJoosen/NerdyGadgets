@@ -1,0 +1,88 @@
+﻿@model NerdyGadgets.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h3>Product Details</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class = "col-sm-10">
+            @(Model.Category == null ? "Uncategorized" : Model.Category.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            €@Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Media)
+        </dt>
+        <dd class = "col-sm-10">
+            <img width="80" src="@Model.FullImagePath" />
+        </dd>
+    </dl>
+</div>
+<hr/>
+
+<h4>Product Specs</h4>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th></th>
+    </tr>
+    <tr>
+        <form asp-action="AddSpec" method="POST">
+            <input type="hidden" name="prodNum" value="@Model.ProductNumber" />
+            <td>
+                <input type="text" name="specName" placeholder="Spec Name" required />
+            </td>
+            <td>
+                <input type="text" name="specVal" placeholder="Spec Value" required />
+            </td>
+            <td>
+                <input type="submit" class="btn btn-primary" val="Add Product Spec" />
+            </td>
+        </form>
+    </tr>
+    @foreach (var spec in Model.ProductSpecs)
+    {
+        <tr>
+            <td>@spec.SpecName</td>
+            <td>@spec.SpecVal</td>
+            <td>
+                <a asp-action="DeleteSpec" asp-route-prod="@spec.ProductNumber" asp-route-spec="@spec.SpecName">Delete</a>
+            </td>
+        </tr>
+    }
+</table>    
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ProductNumber">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

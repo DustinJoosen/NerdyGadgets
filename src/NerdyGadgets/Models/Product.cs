@@ -20,10 +20,10 @@ namespace NerdyGadgets.Models
         public string Description { get; set; }
 
         [Column("category")]
-        public string CategoryCode { get; set; }
+        public string? CategoryCode { get; set; }
 
         [ForeignKey("CategoryCode")]
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
         [Required]
         [Column("unit_price")]
@@ -45,8 +45,8 @@ namespace NerdyGadgets.Models
         [Column("stock")]
         public int Stock { get; set; }
 
-        public virtual ICollection<OrderLine> OrderLines { get; set; }
-        public virtual ICollection<ProductSpec> ProductSpecs { get; set; }
+        public virtual ICollection<OrderLine>? OrderLines { get; set; }
+        public virtual ICollection<ProductSpec>? ProductSpecs { get; set; }
 
     }
 }

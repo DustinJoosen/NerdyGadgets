@@ -18,7 +18,14 @@ namespace NerdyGadgets.Models
         [StringLength(128)]
         [Column("image")]
         public string? Image { get; set; }
+        public string FullImagePath
+        {
+            get
+            {
+                return "/img/notfound.jpg";
+            }
+        }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product>? Products { get; set; }
     }
 }
